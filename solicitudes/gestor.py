@@ -3,13 +3,15 @@ import os
 from datetime import datetime
 
 from modelos import Canal, Estado, Prioridad, TipoSolicitud, es_valor_de
+from prioridad import PoliticaPrioridad
 
 ARCHIVO = os.environ.get("SOLICITUDES_DATA", "datos/solicitudes.json")
 contador = 0
 
 
 class GestorSolicitudes:
-    def __init__(self):
+    def __init__(self, politica_prioridad=None):
+        self.politica_prioridad = politica_prioridad or PoliticaPrioridad()
         self.estudiantes = []
         self.responsables = []
         self.solicitudes = []
@@ -92,16 +94,11 @@ class GestorSolicitudes:
         return None
 
     def _calcular_prioridad(self, tipo, urgente, canal):
-        tipo = TipoSolicitud(tipo)
-        if tipo == TipoSolicitud.RECLAMO_NOTA:
-            return Prioridad.ALTA if urgente else Prioridad.MEDIA
-        if tipo == TipoSolicitud.EQUIVALENCIA:
-            return Prioridad.MEDIA
-        if tipo == TipoSolicitud.CERTIFICADO:
-            return Prioridad.MEDIA if urgente else Prioridad.BAJA
-        if tipo == TipoSolicitud.BAJA_MATERIA:
-            return Prioridad.ALTA
-        return Prioridad.MEDIA if canal == Canal.PRESENCIAL.value else Prioridad.BAJA
+        class _Datos:  # puente temporal hasta introducir el Parameter Object (R4)
+            pass
+        datos = _Datos()
+        datos.tipo, datos.urgente, datos.canal = TipoSolicitud(tipo), urgente, Canal(canal)
+        return self.politica_prioridad.calcular(datos)
 
     def _crear_solicitud(self, id_solicitud, legajo, tipo, descripcion, materia, canal, prioridad):
         hoy = self._hoy()
@@ -178,20 +175,11 @@ class GestorSolicitudes:
             print("Error: no existe la solicitud #" + str(id_sol))
             return "error"
         ant = sol["estado"]
-        ok = False
-        if ant == Estado.PENDIENTE:
-            if nuevo == Estado.EN_PROCESO:
-                if sol["responsable"] is None:
-                    print("Error: no se puede pasar a en_proceso sin responsable asignado")
-                    return False
-                ok = True
-            elif nuevo == Estado.RECHAZADA:
-                ok = True
-        elif ant == Estado.EN_PROCESO:
-            if nuevo in (Estado.RESUELTA, Estado.RECHAZADA):
-                ok = True
-        if not ok:
+        if not es_valor_de(Estado, nuevo) or not Estado(ant).puede_pasar_a(Estado(nuevo)):
             print("Error: transicion invalida " + ant + " -> " + nuevo)
+            return False
+        if nuevo == Estado.EN_PROCESO and sol["responsable"] is None:
+            print("Error: no se puede pasar a en_proceso sin responsable asignado")
             return False
         sol["estado"] = nuevo
         hoy = self._hoy()

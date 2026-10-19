@@ -12,6 +12,18 @@ class Estado(str, Enum):
     def esta_abierta(self):
         return self in (Estado.PENDIENTE, Estado.EN_PROCESO)
 
+    def puede_pasar_a(self, nuevo):
+        return nuevo in _TRANSICIONES[self]
+
+
+# Maquina de estados: antes eran if anidados dentro de cambiar_estado (CS-08).
+_TRANSICIONES = {
+    Estado.PENDIENTE: {Estado.EN_PROCESO, Estado.RECHAZADA},
+    Estado.EN_PROCESO: {Estado.RESUELTA, Estado.RECHAZADA},
+    Estado.RESUELTA: set(),
+    Estado.RECHAZADA: set(),
+}
+
 
 class TipoSolicitud(str, Enum):
     CERTIFICADO = "certificado"
