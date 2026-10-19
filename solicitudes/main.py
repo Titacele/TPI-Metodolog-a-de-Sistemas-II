@@ -30,11 +30,7 @@ def main():
             legajo = input("Legajo: ").strip()
             nombre = ""
             email = ""
-            existe = False
-            for e in g.estudiantes:
-                if e["legajo"] == legajo:
-                    existe = True
-            if not existe:
+            if g.buscar_estudiante(legajo) is None:
                 print("Estudiante nuevo, complete sus datos")
                 nombre = input("Nombre: ")
                 email = input("Email: ").strip()

@@ -35,156 +35,156 @@ class GestorSolicitudes:
             contador = 0
 
     def registrar_estudiante(self, legajo, nombre, email):
-        # validar legajo
-        if not legajo.isdigit() or len(legajo) != 5:
-            print("Error: el legajo debe tener 5 digitos")
+        error = self._validar_datos_estudiante(legajo, nombre, email)
+        if error is None and self.buscar_estudiante(legajo) is not None:
+            error = "ya existe un estudiante con ese legajo"
+        if error is not None:
+            print("Error: " + error)
             return False
-        # validar email
-        if "@" not in email or "." not in email.split("@")[-1]:
-            print("Error: email invalido")
-            return False
-        if nombre.strip() == "":
-            print("Error: el nombre no puede estar vacio")
-            return False
-        for e in self.estudiantes:
-            if e["legajo"] == legajo:
-                print("Error: ya existe un estudiante con ese legajo")
-                return False
         self.estudiantes.append({"legajo": legajo, "nombre": nombre.strip(), "email": email})
-        f = open(ARCHIVO, "w", encoding="utf-8")
-        json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
-                   "solicitudes": self.solicitudes, "contador": contador}, f, indent=2, ensure_ascii=False)
-        f.close()
+        self._guardar()
         print("Estudiante registrado: " + legajo + " - " + nombre.strip())
         return True
 
     def registrar_solicitud(self, legajo, nombre, email, tipo, descripcion, materia, urgente, canal):
         global contador
-        # buscar estudiante, si no existe lo damos de alta
-        est = None
-        for e in self.estudiantes:
-            if e["legajo"] == legajo:
-                est = e
-        if est == None:
-            if not legajo.isdigit() or len(legajo) != 5:
-                print("Error: el legajo debe tener 5 digitos")
-                return False
-            if "@" not in email or "." not in email.split("@")[-1]:
-                print("Error: email invalido")
-                return False
-            if nombre.strip() == "":
-                print("Error: el nombre no puede estar vacio")
-                return False
-            est = {"legajo": legajo, "nombre": nombre.strip(), "email": email}
-            self.estudiantes.append(est)
+        estudiante = self.buscar_estudiante(legajo)
+        error = None
+        if estudiante is None:
+            error = self._validar_datos_estudiante(legajo, nombre, email)
+        if error is None:
+            error = self._validar_solicitud(tipo, descripcion, materia, canal)
+        if error is not None:
+            print("Error: " + error)
+            return False
+        if estudiante is None:
+            self.estudiantes.append({"legajo": legajo, "nombre": nombre.strip(), "email": email})
             print("(Se dio de alta al estudiante " + legajo + ")")
-        # validar tipo
-        if tipo not in ["certificado", "equivalencia", "cambio_comision", "reclamo_nota", "baja_materia"]:
-            print("Error: tipo de solicitud invalido")
-            return False
-        if len(descripcion.strip()) < 10:
-            print("Error: la descripcion debe tener al menos 10 caracteres")
-            return False
-        if canal != "web" and canal != "presencial" and canal != "email":
-            print("Error: canal invalido")
-            return False
-        # calcular prioridad
-        p = 0
-        if tipo == "reclamo_nota":
-            if urgente:
-                p = 3
-            else:
-                p = 2
-        elif tipo == "equivalencia":
-            p = 2
-        elif tipo == "certificado":
-            if urgente:
-                p = 2
-            else:
-                p = 1
-        elif tipo == "baja_materia":
-            p = 3
-        elif tipo == "cambio_comision":
-            if canal == "presencial":
-                p = 2
-            else:
-                p = 1
-        if materia.strip() == "" and (tipo == "equivalencia" or tipo == "reclamo_nota" or tipo == "baja_materia"):
-            print("Error: este tipo de solicitud requiere indicar la materia")
-            return False
         contador = contador + 1
-        hoy = datetime.now().strftime("%Y-%m-%d")
-        s = {
-            "id": contador,
+        solicitud = self._crear_solicitud(contador, legajo, tipo, descripcion, materia, canal,
+                                          self._calcular_prioridad(tipo, urgente, canal))
+        self.solicitudes.append(solicitud)
+        self._guardar()
+        print("Solicitud #" + str(contador) + " registrada con prioridad "
+              + self._texto_prioridad(solicitud["prioridad"]))
+        return True
+
+    def _validar_datos_estudiante(self, legajo, nombre, email):
+        if not legajo.isdigit() or len(legajo) != 5:
+            return "el legajo debe tener 5 digitos"
+        if "@" not in email or "." not in email.split("@")[-1]:
+            return "email invalido"
+        if nombre.strip() == "":
+            return "el nombre no puede estar vacio"
+        return None
+
+    def _validar_solicitud(self, tipo, descripcion, materia, canal):
+        if tipo not in ["certificado", "equivalencia", "cambio_comision", "reclamo_nota", "baja_materia"]:
+            return "tipo de solicitud invalido"
+        if len(descripcion.strip()) < 10:
+            return "la descripcion debe tener al menos 10 caracteres"
+        if canal not in ("web", "presencial", "email"):
+            return "canal invalido"
+        if materia.strip() == "" and tipo in ("equivalencia", "reclamo_nota", "baja_materia"):
+            return "este tipo de solicitud requiere indicar la materia"
+        return None
+
+    def _calcular_prioridad(self, tipo, urgente, canal):
+        if tipo == "reclamo_nota":
+            return 3 if urgente else 2
+        if tipo == "equivalencia":
+            return 2
+        if tipo == "certificado":
+            return 2 if urgente else 1
+        if tipo == "baja_materia":
+            return 3
+        if tipo == "cambio_comision":
+            return 2 if canal == "presencial" else 1
+        return 0
+
+    def _crear_solicitud(self, id_solicitud, legajo, tipo, descripcion, materia, canal, prioridad):
+        hoy = self._hoy()
+        return {
+            "id": id_solicitud,
             "legajo": legajo,
             "tipo": tipo,
             "descripcion": descripcion.strip(),
             "materia": materia.strip(),
             "canal": canal,
-            "prioridad": p,
+            "prioridad": prioridad,
             "estado": "pendiente",
             "responsable": None,
             "fecha": hoy,
             "historial": [hoy + " creada (pendiente)"],
         }
-        self.solicitudes.append(s)
-        f = open(ARCHIVO, "w", encoding="utf-8")
-        json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
-                   "solicitudes": self.solicitudes, "contador": contador}, f, indent=2, ensure_ascii=False)
-        f.close()
-        if p == 3:
-            pr = "ALTA"
-        elif p == 2:
-            pr = "MEDIA"
-        else:
-            pr = "BAJA"
-        print("Solicitud #" + str(contador) + " registrada con prioridad " + pr)
-        return True
+
+    def _guardar(self):
+        with open(ARCHIVO, "w", encoding="utf-8") as archivo:
+            json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
+                       "solicitudes": self.solicitudes, "contador": contador},
+                      archivo, indent=2, ensure_ascii=False)
+
+    def _hoy(self):
+        return datetime.now().strftime("%Y-%m-%d")
+
+    @staticmethod
+    def _texto_prioridad(prioridad):
+        if prioridad == 3:
+            return "ALTA"
+        if prioridad == 2:
+            return "MEDIA"
+        return "BAJA"
+
+    def buscar_estudiante(self, legajo):
+        for estudiante in self.estudiantes:
+            if estudiante["legajo"] == legajo:
+                return estudiante
+        return None
+
+    def buscar_solicitud(self, id_solicitud):
+        for solicitud in self.solicitudes:
+            if solicitud["id"] == id_solicitud:
+                return solicitud
+        return None
+
+    def buscar_responsable(self, id_responsable):
+        for responsable in self.responsables:
+            if responsable["id"] == id_responsable:
+                return responsable
+        return None
 
     def asignar_responsable(self, id_sol, id_resp):
-        sol = None
-        for x in self.solicitudes:
-            if x["id"] == id_sol:
-                sol = x
-        if sol == None:
+        sol = self.buscar_solicitud(id_sol)
+        if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return False
-        r = None
-        for x in self.responsables:
-            if x["id"] == id_resp:
-                r = x
-        if r == None:
+        r = self.buscar_responsable(id_resp)
+        if r is None:
             print("Error: no existe el responsable " + str(id_resp))
             return False
         if sol["estado"] == "resuelta" or sol["estado"] == "rechazada":
             print("Error: la solicitud ya esta cerrada")
             return False
         sol["responsable"] = id_resp
-        hoy = datetime.now().strftime("%Y-%m-%d")
+        hoy = self._hoy()
         sol["historial"].append(hoy + " asignada a " + r["nombre"])
         if sol["estado"] == "pendiente":
             sol["estado"] = "en_proceso"
             sol["historial"].append(hoy + " pendiente -> en_proceso")
-        f = open(ARCHIVO, "w", encoding="utf-8")
-        json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
-                   "solicitudes": self.solicitudes, "contador": contador}, f, indent=2, ensure_ascii=False)
-        f.close()
+        self._guardar()
         print("Solicitud #" + str(id_sol) + " asignada a " + r["nombre"] + " (" + r["area"] + ")")
         return True
 
     def cambiar_estado(self, id_sol, nuevo):
-        sol = None
-        for x in self.solicitudes:
-            if x["id"] == id_sol:
-                sol = x
-        if sol == None:
+        sol = self.buscar_solicitud(id_sol)
+        if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return "error"
         ant = sol["estado"]
         ok = False
         if ant == "pendiente":
             if nuevo == "en_proceso":
-                if sol["responsable"] == None:
+                if sol["responsable"] is None:
                     print("Error: no se puede pasar a en_proceso sin responsable asignado")
                     return False
                 ok = True
@@ -197,12 +197,9 @@ class GestorSolicitudes:
             print("Error: transicion invalida " + ant + " -> " + nuevo)
             return False
         sol["estado"] = nuevo
-        hoy = datetime.now().strftime("%Y-%m-%d")
+        hoy = self._hoy()
         sol["historial"].append(hoy + " " + ant + " -> " + nuevo)
-        f = open(ARCHIVO, "w", encoding="utf-8")
-        json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
-                   "solicitudes": self.solicitudes, "contador": contador}, f, indent=2, ensure_ascii=False)
-        f.close()
+        self._guardar()
         print("Solicitud #" + str(id_sol) + ": " + ant + " -> " + nuevo)
         return True
 
@@ -225,44 +222,26 @@ class GestorSolicitudes:
             return l
         print("ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE")
         for s in l:
-            if s["prioridad"] == 3:
-                pr = "ALTA"
-            elif s["prioridad"] == 2:
-                pr = "MEDIA"
-            else:
-                pr = "BAJA"
+            pr = self._texto_prioridad(s["prioridad"])
             resp = "-"
-            if s["responsable"] != None:
-                for r in self.responsables:
-                    if r["id"] == s["responsable"]:
-                        resp = r["nombre"]
+            if s["responsable"] is not None:
+                resp = self.buscar_responsable(s["responsable"])["nombre"]
             print(f"{s['id']:<5}{s['fecha']:<12}{s['tipo']:<17}{pr:<11}{s['estado']:<13}{s['legajo']:<8}{resp}")
         print("Total: " + str(len(l)))
         return l
 
     def ver_detalle(self, id_sol):
-        sol = None
-        for x in self.solicitudes:
-            if x["id"] == id_sol:
-                sol = x
-        if sol == None:
+        sol = self.buscar_solicitud(id_sol)
+        if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return
-        est = None
-        for e in self.estudiantes:
-            if e["legajo"] == sol["legajo"]:
-                est = e
+        est = self.buscar_estudiante(sol["legajo"])
         print("Solicitud #" + str(sol["id"]) + " - " + sol["tipo"])
         print("  Estudiante: " + est["nombre"] + " (" + est["legajo"] + ", " + est["email"] + ")")
         if sol["materia"] != "":
             print("  Materia: " + sol["materia"])
         print("  Descripcion: " + sol["descripcion"])
-        if sol["prioridad"] == 3:
-            pr = "ALTA"
-        elif sol["prioridad"] == 2:
-            pr = "MEDIA"
-        else:
-            pr = "BAJA"
+        pr = self._texto_prioridad(sol["prioridad"])
         print("  Prioridad: " + pr + " | Estado: " + sol["estado"] + " | Canal: " + sol["canal"])
         print("  Historial:")
         for h in sol["historial"]:
@@ -292,12 +271,7 @@ class GestorSolicitudes:
             for s in self.solicitudes:
                 if s["prioridad"] == p and (s["estado"] == "pendiente" or s["estado"] == "en_proceso"):
                     c = c + 1
-            if p == 3:
-                pr = "ALTA"
-            elif p == 2:
-                pr = "MEDIA"
-            else:
-                pr = "BAJA"
+            pr = self._texto_prioridad(p)
             print("  " + pr + ": " + str(c))
         print("Carga por responsable (abiertas):")
         for r in self.responsables:
@@ -314,11 +288,6 @@ class GestorSolicitudes:
             print("Porcentaje cerradas: " + str(round(cerradas * 100 / len(self.solicitudes), 1)) + "%")
         else:
             print("Porcentaje cerradas: 0%")
-
-    # def calcular_prioridad_vieja(self, tipo):
-    #     if tipo == "reclamo_nota":
-    #         return 3
-    #     return 1
 
     def listar_responsables(self):
         for r in self.responsables:
