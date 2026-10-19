@@ -1,0 +1,137 @@
+{
+  "estudiantes": [
+    {
+      "legajo": "10001",
+      "nombre": "Ana Perez",
+      "email": "ana.perez@mail.com"
+    },
+    {
+      "legajo": "10002",
+      "nombre": "Bruno Diaz",
+      "email": "bruno.diaz@mail.com"
+    },
+    {
+      "legajo": "10003",
+      "nombre": "Carla Ruiz",
+      "email": "carla.ruiz@mail.com"
+    }
+  ],
+  "responsables": [
+    {
+      "id": 1,
+      "nombre": "Laura Gomez",
+      "area": "Alumnado"
+    },
+    {
+      "id": 2,
+      "nombre": "Martin Sosa",
+      "area": "Coordinacion"
+    },
+    {
+      "id": 3,
+      "nombre": "Paula Diaz",
+      "area": "Bedelia"
+    }
+  ],
+  "solicitudes": [
+    {
+      "id": 1,
+      "legajo": "10001",
+      "tipo": "reclamo_nota",
+      "descripcion": "La nota del parcial 2 no coincide con la devolucion",
+      "materia": "Programacion III",
+      "canal": "web",
+      "prioridad": 3,
+      "estado": "en_proceso",
+      "responsable": 2,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)",
+        "2026-10-05 asignada a Martin Sosa",
+        "2026-10-05 pendiente -> en_proceso"
+      ]
+    },
+    {
+      "id": 2,
+      "legajo": "10002",
+      "tipo": "certificado",
+      "descripcion": "Necesito certificado de alumno regular para trabajo",
+      "materia": "",
+      "canal": "email",
+      "prioridad": 1,
+      "estado": "rechazada",
+      "responsable": null,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)",
+        "2026-10-05 pendiente -> rechazada"
+      ]
+    },
+    {
+      "id": 3,
+      "legajo": "10003",
+      "tipo": "equivalencia",
+      "descripcion": "Solicito equivalencia de materia aprobada en otra carrera",
+      "materia": "Bases de Datos I",
+      "canal": "presencial",
+      "prioridad": 2,
+      "estado": "resuelta",
+      "responsable": 1,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)",
+        "2026-10-05 asignada a Laura Gomez",
+        "2026-10-05 pendiente -> en_proceso",
+        "2026-10-05 en_proceso -> resuelta"
+      ]
+    },
+    {
+      "id": 4,
+      "legajo": "10001",
+      "tipo": "cambio_comision",
+      "descripcion": "Pido cambio a la comision de la tarde por trabajo",
+      "materia": "",
+      "canal": "presencial",
+      "prioridad": 2,
+      "estado": "pendiente",
+      "responsable": null,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)"
+      ]
+    },
+    {
+      "id": 5,
+      "legajo": "10002",
+      "tipo": "baja_materia",
+      "descripcion": "Solicito la baja de la materia por superposicion horaria",
+      "materia": "Legislacion",
+      "canal": "web",
+      "prioridad": 3,
+      "estado": "en_proceso",
+      "responsable": 3,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)",
+        "2026-10-05 asignada a Paula Diaz",
+        "2026-10-05 pendiente -> en_proceso"
+      ]
+    },
+    {
+      "id": 6,
+      "legajo": "10002",
+      "tipo": "cambio_comision",
+      "descripcion": "Pido cambio de comision por superposicion horaria",
+      "materia": "",
+      "canal": "web",
+      "prioridad": 1,
+      "estado": "pendiente",
+      "responsable": null,
+      "fecha": "2026-10-05",
+      "historial": [
+        "2026-10-05 creada (pendiente)"
+      ]
+    }
+  ],
+  "contador": 6
+}
