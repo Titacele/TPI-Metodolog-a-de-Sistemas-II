@@ -1,0 +1,8 @@
+### Defecto D1: archivo JSON dañado (falta la llave de cierre)
+--- contenido original ---
+{"estudiantes": [{"legajo":"10001","nombre":"Ana","email":"a@b.com"}], "responsables": [], "solicitudes": [], "contador": 0
+
+--- ejecución: registrar un estudiante ---
+Opcion: Legajo: Nombre: Email: Estudiante registrado: 10009 - Zoe Paz
+--- contenido después (Ana desapareció, sin ningún aviso) ---
+[{'legajo': '10009', 'nombre': 'Zoe Paz', 'email': 'zoe@mail.com'}]

@@ -1,0 +1,6 @@
+### Defecto D2: alta de estudiante antes de validar la solicitud
+--- se intenta registrar una solicitud con tipo inválido para un legajo nuevo ---
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): (Se dio de alta al estudiante 40001)
+Error: tipo de solicitud invalido
+Opcion: Legajo: Nombre: Email: Error: ya existe un estudiante con ese legajo
+--- la solicitud fue rechazada, pero el estudiante quedó dado de alta igual (por eso falla el alta posterior) ---

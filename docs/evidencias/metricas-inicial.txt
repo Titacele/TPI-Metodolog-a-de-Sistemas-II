@@ -1,0 +1,92 @@
+# Métricas versión inicial (tag estado-inicial)
+
+## radon cc -s -a (complejidad ciclomática)
+solicitudes/main.py
+    F 19:0 main - C (20)
+    F 6:0 menu - A (1)
+solicitudes/gestor.py
+    M 61:4 GestorSolicitudes.registrar_solicitud - D (28)
+    M 271:4 GestorSolicitudes.reporte - D (24)
+    M 209:4 GestorSolicitudes.buscar - C (17)
+    C 9:0 GestorSolicitudes - C (12)
+    M 175:4 GestorSolicitudes.cambiar_estado - C (12)
+    M 144:4 GestorSolicitudes.asignar_responsable - B (10)
+    M 243:4 GestorSolicitudes.ver_detalle - B (10)
+    M 37:4 GestorSolicitudes.registrar_estudiante - B (8)
+    M 16:4 GestorSolicitudes.cargar - A (2)
+    M 323:4 GestorSolicitudes.listar_responsables - A (2)
+    M 10:4 GestorSolicitudes.__init__ - A (1)
+
+13 blocks (classes, functions, methods) analyzed.
+Average complexity: C (11.307692307692308)
+
+## radon mi -s (índice de mantenibilidad)
+solicitudes/main.py - A (38.61)
+solicitudes/gestor.py - B (16.51)
+
+## radon raw -s (líneas)
+solicitudes/main.py
+    LOC: 102
+    LLOC: 95
+    SLOC: 95
+    Comments: 0
+solicitudes/gestor.py
+    LOC: 325
+    LLOC: 291
+    SLOC: 301
+    Comments: 11
+    LOC: 427
+    LLOC: 386
+    SLOC: 396
+    Comments: 11
+
+## pylint
+solicitudes/gestor.py:170:0: C0301: Line too long (107/100) (line-too-long)
+solicitudes/gestor.py:204:0: C0301: Line too long (107/100) (line-too-long)
+solicitudes/gestor.py:239:0: C0301: Line too long (112/100) (line-too-long)
+solicitudes/gestor.py:293:0: C0301: Line too long (103/100) (line-too-long)
+solicitudes/gestor.py:306:0: C0301: Line too long (111/100) (line-too-long)
+solicitudes/gestor.py:314:0: C0301: Line too long (104/100) (line-too-long)
+solicitudes/gestor.py:6:0: C0103: Constant name "contador" doesn't conform to UPPER_CASE naming style (invalid-name)
+solicitudes/gestor.py:17:8: W0603: Using the global statement (global-statement)
+solicitudes/gestor.py:26:8: W0702: No exception type(s) specified (bare-except)
+solicitudes/gestor.py:19:16: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+solicitudes/gestor.py:54:12: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+solicitudes/gestor.py:61:4: R0913: Too many arguments (8/5) (too-many-arguments)
+solicitudes/gestor.py:61:4: R0917: Too many positional arguments (8/5) (too-many-positional-arguments)
+solicitudes/gestor.py:61:4: R0914: Too many local variables (16/15) (too-many-locals)
+solicitudes/gestor.py:62:8: W0603: Using the global statement (global-statement)
+solicitudes/gestor.py:68:11: C0121: Comparison 'est == None' should be 'est is None' (singleton-comparison)
+solicitudes/gestor.py:88:11: R1714: Consider merging these comparisons with 'in' by using 'canal not in ('web', 'presencial', 'email')'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:112:38: R1714: Consider merging these comparisons with 'in' by using 'tipo in ('equivalencia', 'reclamo_nota', 'baja_materia')'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:61:4: R0911: Too many return statements (8/6) (too-many-return-statements)
+solicitudes/gestor.py:61:4: R0912: Too many branches (24/12) (too-many-branches)
+solicitudes/gestor.py:61:4: R0915: Too many statements (57/50) (too-many-statements)
+solicitudes/gestor.py:131:12: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+solicitudes/gestor.py:149:11: C0121: Comparison 'sol == None' should be 'sol is None' (singleton-comparison)
+solicitudes/gestor.py:156:11: C0121: Comparison 'r == None' should be 'r is None' (singleton-comparison)
+solicitudes/gestor.py:168:12: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+solicitudes/gestor.py:180:11: C0121: Comparison 'sol == None' should be 'sol is None' (singleton-comparison)
+solicitudes/gestor.py:187:19: C0121: Comparison 'sol['responsable'] == None' should be 'sol['responsable'] is None' (singleton-comparison)
+solicitudes/gestor.py:194:15: R1714: Consider merging these comparisons with 'in' by using 'nuevo in ('resuelta', 'rechazada')'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:202:12: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+solicitudes/gestor.py:212:15: R1714: Consider merging these comparisons with 'in' by using 'estado not in ('', s['estado'])'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:214:15: R1714: Consider merging these comparisons with 'in' by using 'tipo not in ('', s['tipo'])'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:216:15: R1714: Consider merging these comparisons with 'in' by using 'legajo not in ('', s['legajo'])'. Use a set instead if elements are hashable. (consider-using-in)
+solicitudes/gestor.py:235:15: C0121: Comparison 's['responsable'] != None' should be 's['responsable'] is not None' (singleton-comparison)
+solicitudes/gestor.py:209:4: R0912: Too many branches (13/12) (too-many-branches)
+solicitudes/gestor.py:248:11: C0121: Comparison 'sol == None' should be 'sol is None' (singleton-comparison)
+solicitudes/gestor.py:271:4: R0912: Too many branches (20/12) (too-many-branches)
+
+-----------------------------------
+Your code has been rated at 8.66/10
+
+
+## flake8 --max-line-length=110 (conteo por código)
+solicitudes/gestor.py
+solicitudes/main.py
+3     E501 line too long (114 > 110 characters)
+7     E711 comparison to None should be 'if cond is None:'
+6     E722 do not use bare 'except'
+1     E741 ambiguous variable name 'l'
+17
