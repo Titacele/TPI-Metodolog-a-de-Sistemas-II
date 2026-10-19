@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+# C0114-C0116: docstrings obligatorios en todo modulo/clase/funcion (se documenta lo no obvio).
+# R0903: falso positivo en clases con un solo metodo publico por diseno (Consola, PoliticaPrioridad).
+disable = C0114, C0115, C0116, R0903
+
+[FORMAT]
+max-line-length = 110

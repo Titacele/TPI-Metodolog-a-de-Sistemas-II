@@ -46,3 +46,20 @@ def test_implementaciones_intercambiables(clase, tmp_path):
     assert repo.obtener_solicitud(1) is None
     assert repo.siguiente_id() == 1
     repo.guardar()
+
+
+def test_guardar_es_atomico_y_no_deja_temporales(tmp_path, monkeypatch):
+    archivo = tmp_path / "datos.json"
+    repo = RepositorioJSON(str(archivo))
+    repo.guardar()
+    contenido_valido = archivo.read_text(encoding="utf-8")
+
+    def falla_al_serializar(*_args, **_kwargs):
+        raise RuntimeError("corte simulado")
+
+    monkeypatch.setattr("repositorio.json.dump", falla_al_serializar)
+    with pytest.raises(RuntimeError):
+        repo.guardar()
+
+    assert archivo.read_text(encoding="utf-8") == contenido_valido
+    assert [p.name for p in tmp_path.iterdir() if p.suffix == ".json"] == ["datos.json"]

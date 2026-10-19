@@ -22,6 +22,6 @@ echo "== Metricas =="
   echo "# Metricas version refactorizada"
   echo; echo "## radon cc -s -a (complejidad ciclomatica)"; radon cc -s -a solicitudes
   echo; echo "## radon mi -s (indice de mantenibilidad)"; radon mi -s solicitudes
-  echo; echo "## pylint"; pylint solicitudes --disable=C0114,C0115,C0116 2>&1 | tail -5 || true
+  echo; echo "## pylint (config en .pylintrc)"; pylint solicitudes 2>&1 | tail -3 || true
   echo; echo "## flake8 --max-line-length=110"; flake8 --max-line-length=110 --count solicitudes || true
 } | tee "$EV/metricas-final.txt"

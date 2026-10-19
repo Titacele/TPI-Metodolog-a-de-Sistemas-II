@@ -66,13 +66,24 @@ class Consola:
 
     def _registrar_solicitud(self):
         legajo = self._leer("Legajo: ").strip()
-        datos_estudiante = None
-        if not self._servicio.existe_estudiante(legajo):
-            self._escribir("Estudiante nuevo, complete sus datos")
-            datos_estudiante = DatosEstudiante(legajo, self._leer("Nombre: "),
-                                               self._leer("Email: ").strip())
+        datos_estudiante = self._leer_datos_estudiante_si_es_nuevo(legajo)
+        resultado = self._servicio.registrar_solicitud(self._leer_datos_solicitud(legajo),
+                                                       datos_estudiante)
+        if resultado.estudiante_dado_de_alta:
+            self._escribir(f"(Se dio de alta al estudiante {legajo})")
+        solicitud = resultado.solicitud
+        self._escribir(f"Solicitud #{solicitud.id} registrada con prioridad "
+                       f"{solicitud.prioridad.etiqueta}")
+
+    def _leer_datos_estudiante_si_es_nuevo(self, legajo):
+        if self._servicio.existe_estudiante(legajo):
+            return None
+        self._escribir("Estudiante nuevo, complete sus datos")
+        return DatosEstudiante(legajo, self._leer("Nombre: "), self._leer("Email: ").strip())
+
+    def _leer_datos_solicitud(self, legajo):
         self._escribir("Tipos: " + ", ".join(TipoSolicitud.valores()))
-        datos = DatosSolicitud(
+        return DatosSolicitud(
             legajo=legajo,
             tipo=self._leer("Tipo: ").strip(),
             descripcion=self._leer("Descripcion: "),
@@ -80,11 +91,6 @@ class Consola:
             urgente=self._leer("Urgente (s/n): ").strip().lower() == "s",
             canal=self._leer("Canal (web/presencial/email): ").strip(),
         )
-        resultado = self._servicio.registrar_solicitud(datos, datos_estudiante)
-        if resultado.estudiante_dado_de_alta:
-            self._escribir(f"(Se dio de alta al estudiante {legajo})")
-        solicitud = resultado.solicitud
-        self._escribir(f"Solicitud #{solicitud.id} registrada con prioridad {solicitud.prioridad.etiqueta}")
 
     def _asignar_responsable(self):
         id_solicitud = self._leer_entero("ID solicitud: ", "ID invalido")
@@ -92,7 +98,8 @@ class Consola:
             self._escribir(f"{responsable.id}. {responsable.nombre} - {responsable.area}")
         id_responsable = self._leer_entero("ID responsable: ", "ID invalido")
         solicitud, responsable = self._servicio.asignar_responsable(id_solicitud, id_responsable)
-        self._escribir(f"Solicitud #{solicitud.id} asignada a {responsable.nombre} ({responsable.area})")
+        self._escribir(f"Solicitud #{solicitud.id} asignada a "
+                       f"{responsable.nombre} ({responsable.area})")
 
     def _cambiar_estado(self):
         id_solicitud = self._leer_entero("ID solicitud: ", "ID invalido")
@@ -106,14 +113,15 @@ class Consola:
         legajo = self._leer("Legajo (enter = todos): ").strip()
         prioridad = self._leer("Prioridad minima 1-3 (enter = todas): ").strip()
         prioridad_minima = self._a_entero(prioridad, "prioridad invalida") if prioridad else 0
-        encontradas = self._servicio.buscar(FiltroSolicitudes(estado, tipo, legajo, prioridad_minima))
-        self._mostrar_listado(encontradas)
+        filtro = FiltroSolicitudes(estado, tipo, legajo, prioridad_minima)
+        self._mostrar_listado(self._servicio.buscar(filtro))
 
     def _ver_detalle(self):
         solicitud, estudiante = self._servicio.obtener_detalle(
             self._leer_entero("ID solicitud: ", "ID invalido"))
         self._escribir(f"Solicitud #{solicitud.id} - {solicitud.tipo.value}")
-        self._escribir(f"  Estudiante: {estudiante.nombre} ({estudiante.legajo}, {estudiante.email})")
+        self._escribir(f"  Estudiante: {estudiante.nombre} "
+                       f"({estudiante.legajo}, {estudiante.email})")
         if solicitud.materia:
             self._escribir(f"  Materia: {solicitud.materia}")
         self._escribir(f"  Descripcion: {solicitud.descripcion}")
@@ -139,7 +147,8 @@ class Consola:
         self._escribir("Carga por responsable (abiertas):")
         for responsable, cantidad in reporte.carga_por_responsable:
             self._escribir(f"  {responsable.nombre} ({responsable.area}): {cantidad}")
-        porcentaje = "0" if reporte.porcentaje_cerradas is None else str(reporte.porcentaje_cerradas)
+        porcentaje = reporte.porcentaje_cerradas
+        porcentaje = "0" if porcentaje is None else str(porcentaje)
         self._escribir(f"Porcentaje cerradas: {porcentaje}%")
 
     # ----------------------------------------------------------------- auxiliares

@@ -1,0 +1,10 @@
+# Golden master ejecutado en cada commit de refactoring
+
+1fd2380 docs: diagnostico de calidad, deuda tecnica y 16 code smells  =>  8 passed in 0.31s
+f542af1 test: red de seguridad con tests de caracterizacion (golden master)  =>  8 passed in 0.31s
+9765d29 refactor(R1): Extract Method en registrar_solicitud y helpers comunes  =>  8 passed in 0.32s
+21be6f0 refactor(R2): reemplazar literales magicos por Enums  =>  8 passed in 0.31s
+5a47b07 refactor(R3): Move Method de reglas de prioridad y de transiciones  =>  8 passed in 0.32s
+9cb2869 refactor(R4): Introduce Parameter Object DatosSolicitud y DatosEstudiante  =>  8 passed in 0.49s
+292b90d refactor(R5): Extract Class RepositorioJSON detras de RepositorioSolicitudes  =>  8 passed in 0.53s
+8f8efe7 refactor(R6): separar interfaz, casos de uso y dominio; errores con excepciones  =>  8 passed in 0.57s

@@ -75,7 +75,8 @@ class ServicioSolicitudes:
         solicitud = self.obtener_solicitud(id_solicitud)
         anterior = solicitud.estado
         if not es_valor_de(Estado, nuevo_estado):
-            raise OperacionNoPermitidaError(f"transicion invalida {anterior.value} -> {nuevo_estado}")
+            raise OperacionNoPermitidaError(
+                f"transicion invalida {anterior.value} -> {nuevo_estado}")
         solicitud.cambiar_estado(Estado(nuevo_estado), self._hoy())
         self._repo.guardar()
         return anterior

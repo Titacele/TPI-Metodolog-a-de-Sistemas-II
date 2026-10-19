@@ -130,5 +130,9 @@ class RepositorioJSON(RepositorioEnMemoria):
             "solicitudes": [s.to_dict() for s in self._solicitudes.values()],
             "contador": self._ultimo_id,
         }
-        with open(self.ruta, "w", encoding="utf-8") as archivo:
+        # Escritura atomica: si el programa se corta a mitad de camino, el archivo
+        # anterior queda intacto (observacion CR-04 del code review).
+        temporal = f"{self.ruta}.tmp"
+        with open(temporal, "w", encoding="utf-8") as archivo:
             json.dump(datos, archivo, indent=2, ensure_ascii=False)
+        os.replace(temporal, self.ruta)

@@ -1,12 +1,12 @@
 Name                         Stmts   Miss Branch BrPart  Cover   Missing
 ------------------------------------------------------------------------
-solicitudes/consola.py         117      0     30      1    99%   117->119
+solicitudes/consola.py         121      0     30      1    99%   125->127
 solicitudes/errores.py           5      0      0      0   100%
 solicitudes/main.py             15      0      2      1    94%   20->exit
 solicitudes/modelos.py         143      0     22      0   100%
 solicitudes/prioridad.py        13      0      0      0   100%
-solicitudes/reportes.py         20      0      0      0   100%
-solicitudes/repositorio.py      71      0      2      0   100%
+solicitudes/reportes.py         25      0      0      0   100%
+solicitudes/repositorio.py      73      0      2      0   100%
 solicitudes/servicio.py         77      0     14      0   100%
 ------------------------------------------------------------------------
-TOTAL                          461      0     70      2    99%
+TOTAL                          472      0     70      2    99%
