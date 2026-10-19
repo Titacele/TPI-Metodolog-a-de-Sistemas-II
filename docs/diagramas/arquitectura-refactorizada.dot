@@ -1,0 +1,25 @@
+digraph G {
+  rankdir=TB; bgcolor="white"; fontname="Helvetica"; nodesep=0.35; ranksep=0.45;
+  node [shape=box, style="rounded,filled", fillcolor="#f2f2f2", color="#555555", fontname="Helvetica", fontsize=11];
+  edge [color="#555555", fontname="Helvetica", fontsize=9];
+  label="Versión refactorizada (estado-refactorizado)"; labelloc=t; fontsize=14;
+  main [label="main.py\ncomposition root"];
+  consola [label="consola.py · Consola\nlee teclado, imprime,\ntraduce excepciones a 'Error: ...'", fillcolor="#e3ecf7", color="#3b6ea5"];
+  servicio [label="servicio.py · ServicioSolicitudes\ncasos de uso (sin print)", fillcolor="#e3ecf7", color="#3b6ea5"];
+  politica [label="prioridad.py · PoliticaPrioridad\nuna regla por tipo (OCP)"];
+  reportes [label="reportes.py\ngenerar_reporte() → Reporte"];
+  modelos [label="modelos.py\nEnums: Estado, TipoSolicitud, Canal, Prioridad\nEntidades: Solicitud, Estudiante, Responsable\nParameter Objects: DatosSolicitud, DatosEstudiante,\nFiltroSolicitudes", fillcolor="#e6f2e6", color="#3d7a3d"];
+  errores [label="errores.py\nErrorDeNegocio y subclases\nDatosDanadosError"];
+  repo [label="«abstracta»\nRepositorioSolicitudes", fillcolor="#fff6dd", color="#a07a1a"];
+  mem [label="RepositorioEnMemoria\n(pruebas)", fillcolor="#fff6dd", color="#a07a1a"];
+  rjson [label="RepositorioJSON\n(escritura atómica)", fillcolor="#fff6dd", color="#a07a1a"];
+  json [label="datos/solicitudes.json\n(mismo formato)", shape=cylinder, fillcolor="#ffffff"];
+  main -> consola; main -> servicio [label="inyecta"]; main -> rjson [label="crea"];
+  consola -> servicio;
+  servicio -> repo [label="depende de\nla abstracción (DIP)"];
+  servicio -> politica; servicio -> reportes; servicio -> modelos;
+  mem -> repo [arrowhead=empty, style=dashed, label="implementa"];
+  rjson -> mem [arrowhead=empty, label="hereda"];
+  rjson -> json;
+  modelos -> errores [style=dotted]; servicio -> errores [style=dotted];
+}
