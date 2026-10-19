@@ -1,0 +1,142 @@
+##### CORRIDA 1 #####
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Estudiante registrado: 30001 - Elena Mora
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #1 registrada con prioridad MEDIA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #2 registrada con prioridad MEDIA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Solicitud #2 asignada a Laura Gomez (Alumnado)
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Hasta luego
+
+##### CORRIDA 2 #####
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #3 registrada con prioridad ALTA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Solicitud #2: en_proceso -> resuelta
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE
+3    <FECHA>  baja_materia     ALTA       pendiente    30001   -
+1    <FECHA>  reclamo_nota     MEDIA      pendiente    30001   -
+2    <FECHA>  certificado      MEDIA      resuelta     30001   Laura Gomez
+Total: 3
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: === REPORTE DE SOLICITUDES ===
+Total de solicitudes: 3
+Por estado:
+  pendiente: 2
+  en_proceso: 0
+  resuelta: 1
+  rechazada: 0
+Por tipo:
+  certificado: 1
+  reclamo_nota: 1
+  baja_materia: 1
+Abiertas por prioridad:
+  ALTA: 1
+  MEDIA: 1
+  BAJA: 0
+Carga por responsable (abiertas):
+  Laura Gomez (Alumnado): 0
+  Martin Sosa (Coordinacion): 0
+  Paula Diaz (Bedelia): 0
+Porcentaje cerradas: 33.3%
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Hasta luego

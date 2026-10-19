@@ -1,0 +1,45 @@
+{
+  "contador": 1,
+  "estudiantes": [
+    {
+      "email": "diego@mail.com",
+      "legajo": "20001",
+      "nombre": "Diego Luna"
+    }
+  ],
+  "responsables": [
+    {
+      "area": "Alumnado",
+      "id": 1,
+      "nombre": "Laura Gomez"
+    },
+    {
+      "area": "Coordinacion",
+      "id": 2,
+      "nombre": "Martin Sosa"
+    },
+    {
+      "area": "Bedelia",
+      "id": 3,
+      "nombre": "Paula Diaz"
+    }
+  ],
+  "solicitudes": [
+    {
+      "canal": "web",
+      "descripcion": "Certificado de examen rendido el lunes",
+      "estado": "rechazada",
+      "fecha": "<FECHA>",
+      "historial": [
+        "<FECHA> creada (pendiente)",
+        "<FECHA> pendiente -> rechazada"
+      ],
+      "id": 1,
+      "legajo": "20001",
+      "materia": "",
+      "prioridad": 1,
+      "responsable": null,
+      "tipo": "certificado"
+    }
+  ]
+}

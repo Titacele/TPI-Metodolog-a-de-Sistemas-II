@@ -1,0 +1,77 @@
+{
+  "contador": 3,
+  "estudiantes": [
+    {
+      "email": "elena.mora@mail.com",
+      "legajo": "30001",
+      "nombre": "Elena Mora"
+    }
+  ],
+  "responsables": [
+    {
+      "area": "Alumnado",
+      "id": 1,
+      "nombre": "Laura Gomez"
+    },
+    {
+      "area": "Coordinacion",
+      "id": 2,
+      "nombre": "Martin Sosa"
+    },
+    {
+      "area": "Bedelia",
+      "id": 3,
+      "nombre": "Paula Diaz"
+    }
+  ],
+  "solicitudes": [
+    {
+      "canal": "web",
+      "descripcion": "Reclamo por nota del trabajo practico final",
+      "estado": "pendiente",
+      "fecha": "<FECHA>",
+      "historial": [
+        "<FECHA> creada (pendiente)"
+      ],
+      "id": 1,
+      "legajo": "30001",
+      "materia": "Metodologia de Sistemas II",
+      "prioridad": 2,
+      "responsable": null,
+      "tipo": "reclamo_nota"
+    },
+    {
+      "canal": "email",
+      "descripcion": "Certificado de materias aprobadas para beca",
+      "estado": "resuelta",
+      "fecha": "<FECHA>",
+      "historial": [
+        "<FECHA> creada (pendiente)",
+        "<FECHA> asignada a Laura Gomez",
+        "<FECHA> pendiente -> en_proceso",
+        "<FECHA> en_proceso -> resuelta"
+      ],
+      "id": 2,
+      "legajo": "30001",
+      "materia": "",
+      "prioridad": 2,
+      "responsable": 1,
+      "tipo": "certificado"
+    },
+    {
+      "canal": "presencial",
+      "descripcion": "Baja de materia por motivos laborales",
+      "estado": "pendiente",
+      "fecha": "<FECHA>",
+      "historial": [
+        "<FECHA> creada (pendiente)"
+      ],
+      "id": 3,
+      "legajo": "30001",
+      "materia": "Programacion IV",
+      "prioridad": 3,
+      "responsable": null,
+      "tipo": "baja_materia"
+    }
+  ]
+}

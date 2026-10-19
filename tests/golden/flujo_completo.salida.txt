@@ -1,0 +1,313 @@
+##### CORRIDA 1 #####
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Estudiante registrado: 10001 - Ana Perez
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Estudiante registrado: 10002 - Bruno Diaz
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #1 registrada con prioridad ALTA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #2 registrada con prioridad BAJA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Estudiante nuevo, complete sus datos
+Nombre: Email: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): (Se dio de alta al estudiante 10003)
+Solicitud #3 registrada con prioridad MEDIA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #4 registrada con prioridad MEDIA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #5 registrada con prioridad ALTA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #6 registrada con prioridad BAJA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Solicitud #1 asignada a Martin Sosa (Coordinacion)
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Solicitud #3 asignada a Laura Gomez (Alumnado)
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Solicitud #3: en_proceso -> resuelta
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Solicitud #2: pendiente -> rechazada
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Solicitud #5 asignada a Paula Diaz (Bedelia)
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE
+1    <FECHA>  reclamo_nota     ALTA       en_proceso   10001   Martin Sosa
+5    <FECHA>  baja_materia     ALTA       en_proceso   10002   Paula Diaz
+3    <FECHA>  equivalencia     MEDIA      resuelta     10003   Laura Gomez
+4    <FECHA>  cambio_comision  MEDIA      pendiente    10001   -
+2    <FECHA>  certificado      BAJA       rechazada    10002   -
+6    <FECHA>  cambio_comision  BAJA       pendiente    10002   -
+Total: 6
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE
+1    <FECHA>  reclamo_nota     ALTA       en_proceso   10001   Martin Sosa
+5    <FECHA>  baja_materia     ALTA       en_proceso   10002   Paula Diaz
+Total: 2
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE
+4    <FECHA>  cambio_comision  MEDIA      pendiente    10001   -
+6    <FECHA>  cambio_comision  BAJA       pendiente    10002   -
+Total: 2
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): ID   FECHA       TIPO             PRIORIDAD  ESTADO       LEGAJO  RESPONSABLE
+5    <FECHA>  baja_materia     ALTA       en_proceso   10002   Paula Diaz
+Total: 1
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): No se encontraron solicitudes
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Solicitud #1 - reclamo_nota
+  Estudiante: Ana Perez (10001, ana.perez@mail.com)
+  Materia: Programacion III
+  Descripcion: La nota del parcial 2 no coincide con la devolucion
+  Prioridad: ALTA | Estado: en_proceso | Canal: web
+  Historial:
+    - <FECHA> creada (pendiente)
+    - <FECHA> asignada a Martin Sosa
+    - <FECHA> pendiente -> en_proceso
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Solicitud #3 - equivalencia
+  Estudiante: Carla Ruiz (10003, carla.ruiz@mail.com)
+  Materia: Bases de Datos I
+  Descripcion: Solicito equivalencia de materia aprobada en otra carrera
+  Prioridad: MEDIA | Estado: resuelta | Canal: presencial
+  Historial:
+    - <FECHA> creada (pendiente)
+    - <FECHA> asignada a Laura Gomez
+    - <FECHA> pendiente -> en_proceso
+    - <FECHA> en_proceso -> resuelta
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: === REPORTE DE SOLICITUDES ===
+Total de solicitudes: 6
+Por estado:
+  pendiente: 2
+  en_proceso: 2
+  resuelta: 1
+  rechazada: 1
+Por tipo:
+  certificado: 1
+  equivalencia: 1
+  cambio_comision: 2
+  reclamo_nota: 1
+  baja_materia: 1
+Abiertas por prioridad:
+  ALTA: 2
+  MEDIA: 1
+  BAJA: 1
+Carga por responsable (abiertas):
+  Laura Gomez (Alumnado): 0
+  Martin Sosa (Coordinacion): 1
+  Paula Diaz (Bedelia): 1
+Porcentaje cerradas: 33.3%
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Hasta luego

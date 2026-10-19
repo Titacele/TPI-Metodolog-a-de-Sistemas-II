@@ -1,0 +1,50 @@
+##### CORRIDA 1 #####
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): No se encontraron solicitudes
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: === REPORTE DE SOLICITUDES ===
+Total de solicitudes: 0
+Por estado:
+  pendiente: 0
+  en_proceso: 0
+  resuelta: 0
+  rechazada: 0
+Por tipo:
+Abiertas por prioridad:
+  ALTA: 0
+  MEDIA: 0
+  BAJA: 0
+Carga por responsable (abiertas):
+  Laura Gomez (Alumnado): 0
+  Martin Sosa (Coordinacion): 0
+  Paula Diaz (Bedelia): 0
+Porcentaje cerradas: 0%
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Hasta luego

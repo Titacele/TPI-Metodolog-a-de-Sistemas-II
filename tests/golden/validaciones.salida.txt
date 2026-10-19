@@ -1,0 +1,326 @@
+##### CORRIDA 1 #####
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Error: el legajo debe tener 5 digitos
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Error: email invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Error: email invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Error: el nombre no puede estar vacio
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Estudiante registrado: 20001 - Diego Luna
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Nombre: Email: Error: ya existe un estudiante con ese legajo
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Error: tipo de solicitud invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Error: la descripcion debe tener al menos 10 caracteres
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Error: este tipo de solicitud requiere indicar la materia
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Error: canal invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Legajo: Tipos: certificado, equivalencia, cambio_comision, reclamo_nota, baja_materia
+Tipo: Descripcion: Materia (opcional): Urgente (s/n): Canal (web/presencial/email): Solicitud #1 registrada con prioridad BAJA
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Error: ID invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Error: no existe la solicitud #99
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Error: no existe el responsable 9
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Error: ID invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Error: transicion invalida pendiente -> resuelta
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Error: no se puede pasar a en_proceso sin responsable asignado
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Error: no existe la solicitud #99
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Error: ID invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Solicitud #1: pendiente -> rechazada
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Nuevo estado (en_proceso/resuelta/rechazada): Error: transicion invalida rechazada -> en_proceso
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: 1. Laura Gomez - Alumnado
+2. Martin Sosa - Coordinacion
+3. Paula Diaz - Bedelia
+ID responsable: Error: la solicitud ya esta cerrada
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): Error: prioridad invalida
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Estado (enter = todos): Tipo (enter = todos): Legajo (enter = todos): Prioridad minima 1-3 (enter = todas): No se encontraron solicitudes
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Error: no existe la solicitud #42
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: ID solicitud: Error: ID invalido
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Opcion invalida
+
+==== SISTEMA DE SOLICITUDES ACADEMICAS ====
+1. Registrar estudiante
+2. Registrar solicitud
+3. Asignar responsable
+4. Cambiar estado
+5. Buscar / filtrar solicitudes
+6. Ver detalle de solicitud
+7. Reporte
+0. Salir
+Opcion: Hasta luego
