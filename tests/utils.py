@@ -21,8 +21,13 @@ def normalizar(texto):
 def ejecutar(lineas, archivo_datos):
     """Ejecuta main.py alimentando las lineas por stdin y devuelve la salida normalizada."""
     entorno = dict(os.environ, SOLICITUDES_DATA=str(archivo_datos), PYTHONIOENCODING="utf-8")
+    comando = [sys.executable, str(MAIN)]
+    if os.environ.get("MEDIR_COBERTURA"):
+        # permite medir la cobertura tambien dentro del subproceso (ver README)
+        comando = [sys.executable, "-m", "coverage", "run", "--parallel-mode", "--branch",
+                   f"--source={RAIZ / 'solicitudes'}", f"--data-file={RAIZ / '.coverage'}", str(MAIN)]
     resultado = subprocess.run(
-        [sys.executable, str(MAIN)],
+        comando,
         input="\n".join(lineas) + "\n",
         capture_output=True,
         text=True,
