@@ -29,7 +29,7 @@ def main():
             legajo = input("Legajo: ").strip()
             nombre = ""
             email = ""
-            if g.buscar_estudiante(legajo) is None:
+            if g.repo.buscar_estudiante(legajo) is None:
                 print("Estudiante nuevo, complete sus datos")
                 nombre = input("Nombre: ")
                 email = input("Email: ").strip()

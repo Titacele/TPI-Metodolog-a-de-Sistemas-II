@@ -1,59 +1,30 @@
-import json
-import os
 from datetime import datetime
 
 from modelos import DatosEstudiante, Estado, Prioridad, TipoSolicitud, es_valor_de
 from prioridad import PoliticaPrioridad
-
-ARCHIVO = os.environ.get("SOLICITUDES_DATA", "datos/solicitudes.json")
-contador = 0
+from repositorio import RepositorioJSON
 
 
 class GestorSolicitudes:
-    def __init__(self, politica_prioridad=None):
+    def __init__(self, repositorio=None, politica_prioridad=None):
+        self.repo = repositorio or RepositorioJSON()
         self.politica_prioridad = politica_prioridad or PoliticaPrioridad()
-        self.estudiantes = []
-        self.responsables = []
-        self.solicitudes = []
-        self.cargar()
-
-    def cargar(self):
-        global contador
-        try:
-            f = open(ARCHIVO, "r", encoding="utf-8")
-            d = json.load(f)
-            f.close()
-            self.estudiantes = d["estudiantes"]
-            self.responsables = d["responsables"]
-            self.solicitudes = d["solicitudes"]
-            contador = d["contador"]
-        except:
-            # si falla arrancamos de cero
-            self.estudiantes = []
-            self.responsables = [
-                {"id": 1, "nombre": "Laura Gomez", "area": "Alumnado"},
-                {"id": 2, "nombre": "Martin Sosa", "area": "Coordinacion"},
-                {"id": 3, "nombre": "Paula Diaz", "area": "Bedelia"},
-            ]
-            self.solicitudes = []
-            contador = 0
 
     def registrar_estudiante(self, datos):
         error = datos.validar()
-        if error is None and self.buscar_estudiante(datos.legajo) is not None:
+        if error is None and self.repo.buscar_estudiante(datos.legajo) is not None:
             error = "ya existe un estudiante con ese legajo"
         if error is not None:
             print("Error: " + error)
             return False
-        self.estudiantes.append({"legajo": datos.legajo, "nombre": datos.nombre.strip(), "email": datos.email})
-        self._guardar()
+        self.repo.estudiantes.append({"legajo": datos.legajo, "nombre": datos.nombre.strip(), "email": datos.email})
+        self.repo.guardar()
         print("Estudiante registrado: " + datos.legajo + " - " + datos.nombre.strip())
         return True
 
     def registrar_solicitud(self, datos, datos_estudiante=None):
         """Registra una solicitud. 'datos_estudiante' solo se usa si el legajo no existe."""
-        global contador
-        es_estudiante_nuevo = self.buscar_estudiante(datos.legajo) is None
+        es_estudiante_nuevo = self.repo.buscar_estudiante(datos.legajo) is None
         error = None
         if es_estudiante_nuevo:
             datos_estudiante = datos_estudiante or DatosEstudiante(datos.legajo, "", "")
@@ -64,14 +35,14 @@ class GestorSolicitudes:
             print("Error: " + error)
             return False
         if es_estudiante_nuevo:
-            self.estudiantes.append({"legajo": datos.legajo, "nombre": datos_estudiante.nombre.strip(),
+            self.repo.estudiantes.append({"legajo": datos.legajo, "nombre": datos_estudiante.nombre.strip(),
                                      "email": datos_estudiante.email})
             print("(Se dio de alta al estudiante " + datos.legajo + ")")
-        contador = contador + 1
-        solicitud = self._crear_solicitud(contador, datos, self.politica_prioridad.calcular(datos))
-        self.solicitudes.append(solicitud)
-        self._guardar()
-        print("Solicitud #" + str(contador) + " registrada con prioridad "
+        id_solicitud = self.repo.siguiente_id()
+        solicitud = self._crear_solicitud(id_solicitud, datos, self.politica_prioridad.calcular(datos))
+        self.repo.solicitudes.append(solicitud)
+        self.repo.guardar()
+        print("Solicitud #" + str(id_solicitud) + " registrada con prioridad "
               + self._texto_prioridad(solicitud["prioridad"]))
         return True
 
@@ -91,12 +62,6 @@ class GestorSolicitudes:
             "historial": [hoy + " creada (pendiente)"],
         }
 
-    def _guardar(self):
-        with open(ARCHIVO, "w", encoding="utf-8") as archivo:
-            json.dump({"estudiantes": self.estudiantes, "responsables": self.responsables,
-                       "solicitudes": self.solicitudes, "contador": contador},
-                      archivo, indent=2, ensure_ascii=False)
-
     def _hoy(self):
         return datetime.now().strftime("%Y-%m-%d")
 
@@ -104,30 +69,12 @@ class GestorSolicitudes:
     def _texto_prioridad(prioridad):
         return Prioridad(prioridad).etiqueta
 
-    def buscar_estudiante(self, legajo):
-        for estudiante in self.estudiantes:
-            if estudiante["legajo"] == legajo:
-                return estudiante
-        return None
-
-    def buscar_solicitud(self, id_solicitud):
-        for solicitud in self.solicitudes:
-            if solicitud["id"] == id_solicitud:
-                return solicitud
-        return None
-
-    def buscar_responsable(self, id_responsable):
-        for responsable in self.responsables:
-            if responsable["id"] == id_responsable:
-                return responsable
-        return None
-
     def asignar_responsable(self, id_sol, id_resp):
-        sol = self.buscar_solicitud(id_sol)
+        sol = self.repo.buscar_solicitud(id_sol)
         if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return False
-        r = self.buscar_responsable(id_resp)
+        r = self.repo.buscar_responsable(id_resp)
         if r is None:
             print("Error: no existe el responsable " + str(id_resp))
             return False
@@ -140,12 +87,12 @@ class GestorSolicitudes:
         if sol["estado"] == Estado.PENDIENTE:
             sol["estado"] = Estado.EN_PROCESO.value
             sol["historial"].append(hoy + " pendiente -> en_proceso")
-        self._guardar()
+        self.repo.guardar()
         print("Solicitud #" + str(id_sol) + " asignada a " + r["nombre"] + " (" + r["area"] + ")")
         return True
 
     def cambiar_estado(self, id_sol, nuevo):
-        sol = self.buscar_solicitud(id_sol)
+        sol = self.repo.buscar_solicitud(id_sol)
         if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return "error"
@@ -159,13 +106,13 @@ class GestorSolicitudes:
         sol["estado"] = nuevo
         hoy = self._hoy()
         sol["historial"].append(hoy + " " + ant + " -> " + nuevo)
-        self._guardar()
+        self.repo.guardar()
         print("Solicitud #" + str(id_sol) + ": " + ant + " -> " + nuevo)
         return True
 
     def buscar(self, estado, tipo, legajo, prio_min):
         l = []
-        for s in self.solicitudes:
+        for s in self.repo.solicitudes:
             if estado != "" and s["estado"] != estado:
                 continue
             if tipo != "" and s["tipo"] != tipo:
@@ -185,17 +132,17 @@ class GestorSolicitudes:
             pr = self._texto_prioridad(s["prioridad"])
             resp = "-"
             if s["responsable"] is not None:
-                resp = self.buscar_responsable(s["responsable"])["nombre"]
+                resp = self.repo.buscar_responsable(s["responsable"])["nombre"]
             print(f"{s['id']:<5}{s['fecha']:<12}{s['tipo']:<17}{pr:<11}{s['estado']:<13}{s['legajo']:<8}{resp}")
         print("Total: " + str(len(l)))
         return l
 
     def ver_detalle(self, id_sol):
-        sol = self.buscar_solicitud(id_sol)
+        sol = self.repo.buscar_solicitud(id_sol)
         if sol is None:
             print("Error: no existe la solicitud #" + str(id_sol))
             return
-        est = self.buscar_estudiante(sol["legajo"])
+        est = self.repo.buscar_estudiante(sol["legajo"])
         print("Solicitud #" + str(sol["id"]) + " - " + sol["tipo"])
         print("  Estudiante: " + est["nombre"] + " (" + est["legajo"] + ", " + est["email"] + ")")
         if sol["materia"] != "":
@@ -209,18 +156,18 @@ class GestorSolicitudes:
 
     def reporte(self):
         print("=== REPORTE DE SOLICITUDES ===")
-        print("Total de solicitudes: " + str(len(self.solicitudes)))
+        print("Total de solicitudes: " + str(len(self.repo.solicitudes)))
         print("Por estado:")
         for est in Estado:
             c = 0
-            for s in self.solicitudes:
+            for s in self.repo.solicitudes:
                 if s["estado"] == est:
                     c = c + 1
             print("  " + est.value + ": " + str(c))
         print("Por tipo:")
         for t in TipoSolicitud:
             c = 0
-            for s in self.solicitudes:
+            for s in self.repo.solicitudes:
                 if s["tipo"] == t:
                     c = c + 1
             if c > 0:
@@ -228,27 +175,27 @@ class GestorSolicitudes:
         print("Abiertas por prioridad:")
         for p in sorted(Prioridad, reverse=True):
             c = 0
-            for s in self.solicitudes:
+            for s in self.repo.solicitudes:
                 if s["prioridad"] == p and Estado(s["estado"]).esta_abierta:
                     c = c + 1
             pr = self._texto_prioridad(p)
             print("  " + pr + ": " + str(c))
         print("Carga por responsable (abiertas):")
-        for r in self.responsables:
+        for r in self.repo.responsables:
             c = 0
-            for s in self.solicitudes:
+            for s in self.repo.solicitudes:
                 if s["responsable"] == r["id"] and Estado(s["estado"]).esta_abierta:
                     c = c + 1
             print("  " + r["nombre"] + " (" + r["area"] + "): " + str(c))
         cerradas = 0
-        for s in self.solicitudes:
+        for s in self.repo.solicitudes:
             if not Estado(s["estado"]).esta_abierta:
                 cerradas = cerradas + 1
-        if len(self.solicitudes) > 0:
-            print("Porcentaje cerradas: " + str(round(cerradas * 100 / len(self.solicitudes), 1)) + "%")
+        if len(self.repo.solicitudes) > 0:
+            print("Porcentaje cerradas: " + str(round(cerradas * 100 / len(self.repo.solicitudes), 1)) + "%")
         else:
             print("Porcentaje cerradas: 0%")
 
     def listar_responsables(self):
-        for r in self.responsables:
+        for r in self.repo.responsables:
             print(str(r["id"]) + ". " + r["nombre"] + " - " + r["area"])
