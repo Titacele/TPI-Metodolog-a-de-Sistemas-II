@@ -2,6 +2,8 @@ import json
 import os
 from datetime import datetime
 
+from modelos import Canal, Estado, Prioridad, TipoSolicitud, es_valor_de
+
 ARCHIVO = os.environ.get("SOLICITUDES_DATA", "datos/solicitudes.json")
 contador = 0
 
@@ -79,28 +81,27 @@ class GestorSolicitudes:
         return None
 
     def _validar_solicitud(self, tipo, descripcion, materia, canal):
-        if tipo not in ["certificado", "equivalencia", "cambio_comision", "reclamo_nota", "baja_materia"]:
+        if not es_valor_de(TipoSolicitud, tipo):
             return "tipo de solicitud invalido"
         if len(descripcion.strip()) < 10:
             return "la descripcion debe tener al menos 10 caracteres"
-        if canal not in ("web", "presencial", "email"):
+        if not es_valor_de(Canal, canal):
             return "canal invalido"
-        if materia.strip() == "" and tipo in ("equivalencia", "reclamo_nota", "baja_materia"):
+        if materia.strip() == "" and TipoSolicitud(tipo).requiere_materia:
             return "este tipo de solicitud requiere indicar la materia"
         return None
 
     def _calcular_prioridad(self, tipo, urgente, canal):
-        if tipo == "reclamo_nota":
-            return 3 if urgente else 2
-        if tipo == "equivalencia":
-            return 2
-        if tipo == "certificado":
-            return 2 if urgente else 1
-        if tipo == "baja_materia":
-            return 3
-        if tipo == "cambio_comision":
-            return 2 if canal == "presencial" else 1
-        return 0
+        tipo = TipoSolicitud(tipo)
+        if tipo == TipoSolicitud.RECLAMO_NOTA:
+            return Prioridad.ALTA if urgente else Prioridad.MEDIA
+        if tipo == TipoSolicitud.EQUIVALENCIA:
+            return Prioridad.MEDIA
+        if tipo == TipoSolicitud.CERTIFICADO:
+            return Prioridad.MEDIA if urgente else Prioridad.BAJA
+        if tipo == TipoSolicitud.BAJA_MATERIA:
+            return Prioridad.ALTA
+        return Prioridad.MEDIA if canal == Canal.PRESENCIAL.value else Prioridad.BAJA
 
     def _crear_solicitud(self, id_solicitud, legajo, tipo, descripcion, materia, canal, prioridad):
         hoy = self._hoy()
@@ -111,8 +112,8 @@ class GestorSolicitudes:
             "descripcion": descripcion.strip(),
             "materia": materia.strip(),
             "canal": canal,
-            "prioridad": prioridad,
-            "estado": "pendiente",
+            "prioridad": int(prioridad),
+            "estado": Estado.PENDIENTE.value,
             "responsable": None,
             "fecha": hoy,
             "historial": [hoy + " creada (pendiente)"],
@@ -129,11 +130,7 @@ class GestorSolicitudes:
 
     @staticmethod
     def _texto_prioridad(prioridad):
-        if prioridad == 3:
-            return "ALTA"
-        if prioridad == 2:
-            return "MEDIA"
-        return "BAJA"
+        return Prioridad(prioridad).etiqueta
 
     def buscar_estudiante(self, legajo):
         for estudiante in self.estudiantes:
@@ -162,14 +159,14 @@ class GestorSolicitudes:
         if r is None:
             print("Error: no existe el responsable " + str(id_resp))
             return False
-        if sol["estado"] == "resuelta" or sol["estado"] == "rechazada":
+        if not Estado(sol["estado"]).esta_abierta:
             print("Error: la solicitud ya esta cerrada")
             return False
         sol["responsable"] = id_resp
         hoy = self._hoy()
         sol["historial"].append(hoy + " asignada a " + r["nombre"])
-        if sol["estado"] == "pendiente":
-            sol["estado"] = "en_proceso"
+        if sol["estado"] == Estado.PENDIENTE:
+            sol["estado"] = Estado.EN_PROCESO.value
             sol["historial"].append(hoy + " pendiente -> en_proceso")
         self._guardar()
         print("Solicitud #" + str(id_sol) + " asignada a " + r["nombre"] + " (" + r["area"] + ")")
@@ -182,16 +179,16 @@ class GestorSolicitudes:
             return "error"
         ant = sol["estado"]
         ok = False
-        if ant == "pendiente":
-            if nuevo == "en_proceso":
+        if ant == Estado.PENDIENTE:
+            if nuevo == Estado.EN_PROCESO:
                 if sol["responsable"] is None:
                     print("Error: no se puede pasar a en_proceso sin responsable asignado")
                     return False
                 ok = True
-            elif nuevo == "rechazada":
+            elif nuevo == Estado.RECHAZADA:
                 ok = True
-        elif ant == "en_proceso":
-            if nuevo == "resuelta" or nuevo == "rechazada":
+        elif ant == Estado.EN_PROCESO:
+            if nuevo in (Estado.RESUELTA, Estado.RECHAZADA):
                 ok = True
         if not ok:
             print("Error: transicion invalida " + ant + " -> " + nuevo)
@@ -251,25 +248,25 @@ class GestorSolicitudes:
         print("=== REPORTE DE SOLICITUDES ===")
         print("Total de solicitudes: " + str(len(self.solicitudes)))
         print("Por estado:")
-        for est in ["pendiente", "en_proceso", "resuelta", "rechazada"]:
+        for est in Estado:
             c = 0
             for s in self.solicitudes:
                 if s["estado"] == est:
                     c = c + 1
-            print("  " + est + ": " + str(c))
+            print("  " + est.value + ": " + str(c))
         print("Por tipo:")
-        for t in ["certificado", "equivalencia", "cambio_comision", "reclamo_nota", "baja_materia"]:
+        for t in TipoSolicitud:
             c = 0
             for s in self.solicitudes:
                 if s["tipo"] == t:
                     c = c + 1
             if c > 0:
-                print("  " + t + ": " + str(c))
+                print("  " + t.value + ": " + str(c))
         print("Abiertas por prioridad:")
-        for p in [3, 2, 1]:
+        for p in sorted(Prioridad, reverse=True):
             c = 0
             for s in self.solicitudes:
-                if s["prioridad"] == p and (s["estado"] == "pendiente" or s["estado"] == "en_proceso"):
+                if s["prioridad"] == p and Estado(s["estado"]).esta_abierta:
                     c = c + 1
             pr = self._texto_prioridad(p)
             print("  " + pr + ": " + str(c))
@@ -277,12 +274,12 @@ class GestorSolicitudes:
         for r in self.responsables:
             c = 0
             for s in self.solicitudes:
-                if s["responsable"] == r["id"] and (s["estado"] == "pendiente" or s["estado"] == "en_proceso"):
+                if s["responsable"] == r["id"] and Estado(s["estado"]).esta_abierta:
                     c = c + 1
             print("  " + r["nombre"] + " (" + r["area"] + "): " + str(c))
         cerradas = 0
         for s in self.solicitudes:
-            if s["estado"] == "resuelta" or s["estado"] == "rechazada":
+            if not Estado(s["estado"]).esta_abierta:
                 cerradas = cerradas + 1
         if len(self.solicitudes) > 0:
             print("Porcentaje cerradas: " + str(round(cerradas * 100 / len(self.solicitudes), 1)) + "%")

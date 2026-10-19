@@ -1,6 +1,5 @@
 from gestor import GestorSolicitudes
-
-TIPOS = ["certificado", "equivalencia", "cambio_comision", "reclamo_nota", "baja_materia"]
+from modelos import TipoSolicitud
 
 
 def menu():
@@ -34,7 +33,7 @@ def main():
                 print("Estudiante nuevo, complete sus datos")
                 nombre = input("Nombre: ")
                 email = input("Email: ").strip()
-            print("Tipos: " + ", ".join(TIPOS))
+            print("Tipos: " + ", ".join(TipoSolicitud.valores()))
             tipo = input("Tipo: ").strip()
             descripcion = input("Descripcion: ")
             materia = input("Materia (opcional): ")
