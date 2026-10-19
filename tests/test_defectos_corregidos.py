@@ -18,3 +18,14 @@ def test_d2_solicitud_invalida_no_da_de_alta_al_estudiante(tmp_path):
     assert "Error: tipo de solicitud invalido" in salida
     assert "Se dio de alta" not in salida
     assert "Estudiante registrado: 40001 - Luis Vega" in salida
+
+
+def test_d1_json_danado_no_se_sobrescribe(tmp_path):
+    datos = tmp_path / "datos.json"
+    contenido_original = '{"estudiantes": [{"legajo": "10001", "nombre": "Ana", "email": "a@b.com"}]'
+    datos.write_text(contenido_original, encoding="utf-8")
+    codigo, salida, _ = ejecutar(["1", "10009", "Zoe Paz", "zoe@mail.com", "0"], datos)
+    assert codigo == 1
+    assert "Error: no se pudo leer el archivo de datos" in salida
+    assert "Estudiante registrado" not in salida
+    assert datos.read_text(encoding="utf-8") == contenido_original
