@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-from modelos import Canal, Estado, Prioridad, TipoSolicitud, es_valor_de
+from modelos import DatosEstudiante, Estado, Prioridad, TipoSolicitud, es_valor_de
 from prioridad import PoliticaPrioridad
 
 ARCHIVO = os.environ.get("SOLICITUDES_DATA", "datos/solicitudes.json")
@@ -38,77 +38,52 @@ class GestorSolicitudes:
             self.solicitudes = []
             contador = 0
 
-    def registrar_estudiante(self, legajo, nombre, email):
-        error = self._validar_datos_estudiante(legajo, nombre, email)
-        if error is None and self.buscar_estudiante(legajo) is not None:
+    def registrar_estudiante(self, datos):
+        error = datos.validar()
+        if error is None and self.buscar_estudiante(datos.legajo) is not None:
             error = "ya existe un estudiante con ese legajo"
         if error is not None:
             print("Error: " + error)
             return False
-        self.estudiantes.append({"legajo": legajo, "nombre": nombre.strip(), "email": email})
+        self.estudiantes.append({"legajo": datos.legajo, "nombre": datos.nombre.strip(), "email": datos.email})
         self._guardar()
-        print("Estudiante registrado: " + legajo + " - " + nombre.strip())
+        print("Estudiante registrado: " + datos.legajo + " - " + datos.nombre.strip())
         return True
 
-    def registrar_solicitud(self, legajo, nombre, email, tipo, descripcion, materia, urgente, canal):
+    def registrar_solicitud(self, datos, datos_estudiante=None):
+        """Registra una solicitud. 'datos_estudiante' solo se usa si el legajo no existe."""
         global contador
-        estudiante = self.buscar_estudiante(legajo)
+        es_estudiante_nuevo = self.buscar_estudiante(datos.legajo) is None
         error = None
-        if estudiante is None:
-            error = self._validar_datos_estudiante(legajo, nombre, email)
+        if es_estudiante_nuevo:
+            datos_estudiante = datos_estudiante or DatosEstudiante(datos.legajo, "", "")
+            error = datos_estudiante.validar()
         if error is None:
-            error = self._validar_solicitud(tipo, descripcion, materia, canal)
+            error = datos.validar()
         if error is not None:
             print("Error: " + error)
             return False
-        if estudiante is None:
-            self.estudiantes.append({"legajo": legajo, "nombre": nombre.strip(), "email": email})
-            print("(Se dio de alta al estudiante " + legajo + ")")
+        if es_estudiante_nuevo:
+            self.estudiantes.append({"legajo": datos.legajo, "nombre": datos_estudiante.nombre.strip(),
+                                     "email": datos_estudiante.email})
+            print("(Se dio de alta al estudiante " + datos.legajo + ")")
         contador = contador + 1
-        solicitud = self._crear_solicitud(contador, legajo, tipo, descripcion, materia, canal,
-                                          self._calcular_prioridad(tipo, urgente, canal))
+        solicitud = self._crear_solicitud(contador, datos, self.politica_prioridad.calcular(datos))
         self.solicitudes.append(solicitud)
         self._guardar()
         print("Solicitud #" + str(contador) + " registrada con prioridad "
               + self._texto_prioridad(solicitud["prioridad"]))
         return True
 
-    def _validar_datos_estudiante(self, legajo, nombre, email):
-        if not legajo.isdigit() or len(legajo) != 5:
-            return "el legajo debe tener 5 digitos"
-        if "@" not in email or "." not in email.split("@")[-1]:
-            return "email invalido"
-        if nombre.strip() == "":
-            return "el nombre no puede estar vacio"
-        return None
-
-    def _validar_solicitud(self, tipo, descripcion, materia, canal):
-        if not es_valor_de(TipoSolicitud, tipo):
-            return "tipo de solicitud invalido"
-        if len(descripcion.strip()) < 10:
-            return "la descripcion debe tener al menos 10 caracteres"
-        if not es_valor_de(Canal, canal):
-            return "canal invalido"
-        if materia.strip() == "" and TipoSolicitud(tipo).requiere_materia:
-            return "este tipo de solicitud requiere indicar la materia"
-        return None
-
-    def _calcular_prioridad(self, tipo, urgente, canal):
-        class _Datos:  # puente temporal hasta introducir el Parameter Object (R4)
-            pass
-        datos = _Datos()
-        datos.tipo, datos.urgente, datos.canal = TipoSolicitud(tipo), urgente, Canal(canal)
-        return self.politica_prioridad.calcular(datos)
-
-    def _crear_solicitud(self, id_solicitud, legajo, tipo, descripcion, materia, canal, prioridad):
+    def _crear_solicitud(self, id_solicitud, datos, prioridad):
         hoy = self._hoy()
         return {
             "id": id_solicitud,
-            "legajo": legajo,
-            "tipo": tipo,
-            "descripcion": descripcion.strip(),
-            "materia": materia.strip(),
-            "canal": canal,
+            "legajo": datos.legajo,
+            "tipo": datos.tipo,
+            "descripcion": datos.descripcion.strip(),
+            "materia": datos.materia.strip(),
+            "canal": datos.canal,
             "prioridad": int(prioridad),
             "estado": Estado.PENDIENTE.value,
             "responsable": None,

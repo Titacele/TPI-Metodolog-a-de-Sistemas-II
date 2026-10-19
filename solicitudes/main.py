@@ -1,5 +1,5 @@
 from gestor import GestorSolicitudes
-from modelos import TipoSolicitud
+from modelos import DatosEstudiante, DatosSolicitud, TipoSolicitud
 
 
 def menu():
@@ -24,7 +24,7 @@ def main():
             legajo = input("Legajo: ").strip()
             nombre = input("Nombre: ")
             email = input("Email: ").strip()
-            g.registrar_estudiante(legajo, nombre, email)
+            g.registrar_estudiante(DatosEstudiante(legajo, nombre, email))
         elif op == "2":
             legajo = input("Legajo: ").strip()
             nombre = ""
@@ -37,12 +37,10 @@ def main():
             tipo = input("Tipo: ").strip()
             descripcion = input("Descripcion: ")
             materia = input("Materia (opcional): ")
-            u = input("Urgente (s/n): ").strip().lower()
-            urgente = False
-            if u == "s":
-                urgente = True
+            urgente = input("Urgente (s/n): ").strip().lower() == "s"
             canal = input("Canal (web/presencial/email): ").strip()
-            g.registrar_solicitud(legajo, nombre, email, tipo, descripcion, materia, urgente, canal)
+            g.registrar_solicitud(DatosSolicitud(legajo, tipo, descripcion, materia, urgente, canal),
+                                  DatosEstudiante(legajo, nombre, email))
         elif op == "3":
             try:
                 id_sol = int(input("ID solicitud: "))
