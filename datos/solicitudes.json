@@ -131,7 +131,24 @@
       "historial": [
         "2026-10-05 creada (pendiente)"
       ]
+    },
+    {
+      "id": 7,
+      "legajo": "10003",
+      "tipo": "reclamo_nota",
+      "descripcion": "Reclamo por la nota del final de Legislacion",
+      "materia": "Legislacion",
+      "canal": "web",
+      "prioridad": 3,
+      "estado": "en_proceso",
+      "responsable": 2,
+      "fecha": "2026-10-20",
+      "historial": [
+        "2026-10-20 creada (pendiente)",
+        "2026-10-20 asignada a Martin Sosa",
+        "2026-10-20 pendiente -> en_proceso"
+      ]
     }
   ],
-  "contador": 6
+  "contador": 7
 }
