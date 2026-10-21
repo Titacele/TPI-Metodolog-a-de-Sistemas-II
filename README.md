@@ -89,14 +89,4 @@ scripts/           verificar.sh
 | Avisos flake8 | 17 | 0 |
 | Pruebas automatizadas | 0 | 70 (99 % cobertura de ramas) |
 
-## Documentación
 
-| Etapa | Documento |
-|---|---|
-| 2–3. Calidad externa/interna, deuda técnica y code smells | [docs/01-diagnostico.md](docs/01-diagnostico.md) |
-| 4. SOLID, Clean Code y decisiones técnicas | [docs/02-solid-clean-code.md](docs/02-solid-clean-code.md) |
-| 5. Refactorings con antes/después | [docs/03-refactorings.md](docs/03-refactorings.md) |
-| 6. Pruebas y verificación | [docs/04-pruebas.md](docs/04-pruebas.md) |
-| 7. Code review: checklist, observaciones y criterios de aceptación | [docs/05-code-review.md](docs/05-code-review.md) |
-| Uso de IA | [docs/06-uso-ia.md](docs/06-uso-ia.md) |
-| Evidencias | [docs/evidencias/](docs/evidencias/) |
